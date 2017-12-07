@@ -17,10 +17,18 @@ class qalendarControllerRequest extends modRequest {
 
         $modx =& $this->modx;
 
-    		$modx->regClientCSS('/assets/components/qalendar/css/mgr/qalendar.css');
-    		$modx->regClientStartupScript('/assets/components/qalendar/js/mgr/qalendar.js');
+    		$modx->regClientCSS('/assets/components/qalendar/css/mgr/qalendar.css?v='.time());
+    		$modx->regClientStartupScript('/assets/components/qalendar/js/mgr/moment.min.js');
+    		$modx->regClientStartupScript('/assets/components/qalendar/js/mgr/qalendar.js?v='.time());
 
-    		$output = '<div>Qalendar</div>';
+        $properties = [];
+    		$output = '<script>
+          window.qalendarResources = '.$modx->runSnippet('qalendarResources', $properties).';
+        </script>';
+    		$output .= '
+          <div id="qalendar" class="qalendar">
+            <h1>Qalendar</h1>
+          </div>';
     		return $output;
     }
 }
